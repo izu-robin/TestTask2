@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:TestTask2.ViewModels" 
+                    xmlns:view="clr-namespace:TestTask2.Views">
+                    <!--//вот тут добавлено: xmlns:vm="clr-namespace:TestTask2.ViewModels" и xmlns:view=... -->
+
+    <DataTemplate DataType="{x:Type vm:CompleteTestVM}">
+        <view:CompleteTest />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CreateTestVM}">
+        <view:CreateTest />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:DeleteTestVM}">
+        <view:DeleteTest />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:RedactTestVM}">
+        <view:RedactTest />
+    </DataTemplate>
+    
+    
+</ResourceDictionary>
