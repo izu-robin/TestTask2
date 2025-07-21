@@ -40,14 +40,19 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"/>
 
-                <ComboBox Height="25" 
-                        Margin="0"
-                        Width="280"/>
+                <ComboBox  ItemsSource="{Binding AllTests}"
+                           SelectedItem="{Binding SelectedTest, Mode=TwoWay}"
+                           DisplayMemberPath="title"
+                           SelectedValuePath="id" 
+                           Height="25" 
+                           Margin="0"
+                           Width="280"/>
 
                 <Button Style="{StaticResource  PushButton_style}" 
-                    VerticalAlignment="Center"
-                     Margin="0,40"
-                     Width="145">
+                        Command="{Binding DeleteChosenTestCommand}"
+                        VerticalAlignment="Center"
+                        Margin="0,40"
+                        Width="145">
 
                     <TextBlock Text="Удалить тест" 
                             Style="{StaticResource Text_style}"
