@@ -22,15 +22,20 @@ namespace TestTask2.Models.Core
 
         public bool[] ChBStatus
         {
-            get => _chBStatus;
+            get
+            {
+                if (_chBStatus==null)
+                {
+                    _chBStatus = new bool[] { false, false, false, false, false };
+                }
+                return _chBStatus;
+            }
             set
             {
                 _chBStatus = value;
                 OnPropertyChanged();
             }
         }
-
-
 
         //----------------------------------------
 

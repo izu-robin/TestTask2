@@ -7,6 +7,8 @@ using TestTask2.Models;
 using TestTask2.Models.Core;
 using System.Data.SQLite;
 using System.Windows.Markup;
+using System.Security.Cryptography;
+using System.Security.Policy;
 
 namespace TestTask2.DataAccess
 {
@@ -44,7 +46,7 @@ namespace TestTask2.DataAccess
                     SQLiteConnection.Close();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($" Ошибка соединения с базой данных: {ex.Message}");
             }
@@ -72,7 +74,7 @@ namespace TestTask2.DataAccess
                     SQLiteConnection.Close();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($" Ошибка соединения с базой данных при удалении теста: {ex.Message}");
                 return false;
@@ -118,7 +120,7 @@ namespace TestTask2.DataAccess
                 {
                     connection.Open();
 
-                    using(SQLiteCommand command = new SQLiteCommand(sql, connection))
+                    using (SQLiteCommand command = new SQLiteCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@title", t.title);
                         testID = Convert.ToInt32(command.ExecuteScalar());
@@ -142,7 +144,7 @@ namespace TestTask2.DataAccess
                 connection.Open();
 
                 using (var transaction = connection.BeginTransaction())
-                { 
+                {
                     try
                     {
                         using (SQLiteCommand command = new SQLiteCommand(sql, connection))
@@ -178,6 +180,99 @@ namespace TestTask2.DataAccess
 
             return true;
         }
+
+        public static List<Question> LoadQuestions(int testID)
+        {
+            List<Question> questions = new List<Question>();
+
+            string sql = "SELECT Questions.id, Questions.questionText,  Questions.answer1,  Questions.answer2,  Questions.answer3, Questions.answer4,  Questions.correctAnswer FROM Questions WHERE testId=@testId";
+
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@testId", testID);
+
+                    using var reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Question question = new Question();
+
+                        question.id = reader.GetInt32(0);
+                        question.questionText = reader.GetString(1);
+                        question.answer1 = reader.GetString(2);
+                        question.answer2 = reader.GetString(3);
+
+                        // возможные пустые поля
+                        if (!reader.IsDBNull(4))
+                            question.answer3 = reader.GetString(4);
+                        else
+                            question.answer3 = "";
+
+                        if (!reader.IsDBNull(5))
+                            question.answer4 = reader.GetString(5);
+                        else
+                            question.answer4 = "";
+
+                        question.correctAnswer = reader.GetString(6);
+
+                        questions.Add(question);
+                    }
+                }
+            }
+
+            return questions;
+        }
+
+        public static bool UpdateChangedTest(Test t)
+        {
+            string sql = "UPDATE Questions SET questionText= @questionText,  " +
+                "answer1=@answer1, answer2=@answer2, answer3=@answer3, answer4=@answer4,  " +
+                "correctAnswer=@correctAnswer " +
+                "WHERE id = @id ";
+
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+
+                using (var transaction = connection.BeginTransaction())
+                using (SQLiteCommand command = new SQLiteCommand(sql, connection))
+                {
+                    try
+                    {
+                        foreach (Question q in t.QuestionsList)
+                        {
+                            command.Parameters.AddWithValue("@questionText", q.questionText);
+                            command.Parameters.AddWithValue("@answer1", q.answer1);
+                            command.Parameters.AddWithValue("@answer2", q.answer2);
+                            command.Parameters.AddWithValue("@answer3", q.answer3);
+                            command.Parameters.AddWithValue("@answer4", q.answer4);
+                            command.Parameters.AddWithValue("@correctAnswer", q.correctAnswer);
+                            command.Parameters.AddWithValue("@id", q.id);
+
+                            command.ExecuteNonQuery();
+                        }
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        return false;
+                    }
+                }
+                connection.Close();
+
+                return true;
+
+            }
+
+
+        }
+
+
 
 
 

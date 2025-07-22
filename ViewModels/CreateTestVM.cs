@@ -126,6 +126,9 @@ namespace TestTask2.ViewModels
         private void CreateNewTest()
         {
             ClearCheckForBlanks();
+            
+            if(SavingStatus!="")
+            { SavingStatus = ""; }
 
             if (string.IsNullOrWhiteSpace(NewTest.title))
             {
@@ -145,7 +148,7 @@ namespace TestTask2.ViewModels
             }
             else //то есть начинаем новый тест
             {
-                NewTest.CurrentQuestion = 1;
+                NewTest.CurrentQuestionIndex = 1;
                 CreatingInProgress = !CreatingInProgress;
             }
         }
@@ -156,7 +159,7 @@ namespace TestTask2.ViewModels
 
         private void NextQuestion()
         {
-            if(NewTest.CurrentQuestion== NewTest.QuestionsList.Count+1)
+            if(NewTest.CurrentQuestionIndex == NewTest.QuestionsList.Count+1)
             {
                 //то есть мы на последнем вопросе из существующих
                 //если не отклонялись
@@ -168,9 +171,9 @@ namespace TestTask2.ViewModels
 
                 NewTest.QuestionsList.Add(NewQuestion);
                 NewQuestion = new Question();
-                NewTest.CurrentQuestion++;
+                NewTest.CurrentQuestionIndex++;
             }
-            else if(NewTest.CurrentQuestion < NewTest.QuestionsList.Count)
+            else if(NewTest.CurrentQuestionIndex < NewTest.QuestionsList.Count)
             {
                 //то есть мы отмотали немного назад
                 //как-то сохранить отмеченные чекбоксы как ответ
@@ -178,10 +181,10 @@ namespace TestTask2.ViewModels
                 if (CheckForBlanks())
                 { return; }
 
-                NewQuestion = NewTest.QuestionsList[NewTest.CurrentQuestion++];
+                NewQuestion = NewTest.QuestionsList[NewTest.CurrentQuestionIndex++];
                 //NewTest.CurrentQuestion++;
             }
-            else if(NewTest.CurrentQuestion == NewTest.QuestionsList.Count)
+            else if(NewTest.CurrentQuestionIndex == NewTest.QuestionsList.Count)
             {
                 if (CheckForBlanks())
                 { return; }
@@ -189,10 +192,9 @@ namespace TestTask2.ViewModels
                 ErrorMessage = "";
                 NewQuestion = new Question();
                 NewTest.QuestionsList.Add(NewQuestion);
-                NewTest.CurrentQuestion++;
+                NewTest.CurrentQuestionIndex++;
             }
         }
-
         private bool CheckForBlanks()
         {
             if(ErrorMessage!="")
@@ -257,9 +259,9 @@ namespace TestTask2.ViewModels
             if (NewTest.QuestionsList.Count == 0)
             { return; }
 
-            NewTest.CurrentQuestion--;
+            NewTest.CurrentQuestionIndex--;
 
-            NewQuestion = NewTest.QuestionsList[NewTest.CurrentQuestion-1];
+            NewQuestion = NewTest.QuestionsList[NewTest.CurrentQuestionIndex - 1];
         }
 
         private RelayCommand _saveNewTestCommand;
@@ -283,8 +285,6 @@ namespace TestTask2.ViewModels
 
                 NewTest = new Test();
                 NewQuestion = new Question();
-
-                //ErrorMessage = $"{a}";
             }
             else
             {

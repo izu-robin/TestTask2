@@ -15,10 +15,7 @@ namespace TestTask2.Models.Core
     {
         public int id { get; set; }
         public string title { get; set; }
-
-        private int _currentQuestion;
         
-
         //------------------------------
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -27,12 +24,13 @@ namespace TestTask2.Models.Core
         }
         //-------------------------------
 
-        public int CurrentQuestion
+        private int _currentQuestionIndex;
+        public int CurrentQuestionIndex
         {
-            get => _currentQuestion;
+            get => _currentQuestionIndex;
             set
             {
-                _currentQuestion = value>=1 ? value : 1;
+                _currentQuestionIndex = value>=1 ? value : 1;
                 OnPropertyChanged();
             }
         }
@@ -83,6 +81,25 @@ namespace TestTask2.Models.Core
                 }
 
                 q.givenAnswer = sb.ToString();
+            }
+        }
+
+        public void AnswersIntoChBoxes()
+        {
+            foreach(Question q in this.QuestionsList)
+            {
+                //char[] answer = q.correctAnswer.ToArray();
+
+                //for(int i=0; i< q.correctAnswer.Length; i++)
+                //{
+                //    q.ChBStatus[q.correctAnswer[i]] = true;
+                //}
+                int index = -1;
+                foreach (char c in q.correctAnswer)
+                {
+                    index = Convert.ToInt32(c-'0');
+                    q.ChBStatus[index] = true;
+                }
             }
         }
 
