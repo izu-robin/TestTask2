@@ -67,7 +67,7 @@
 
         <Grid Grid.Row="1">
 
-            <TextBlock Text="Тест удалён" 
+            <TextBlock Text="{Binding TbStatus}" 
                        Style="{StaticResource Text_style}"
                        VerticalAlignment="Center"
                        Height="20"

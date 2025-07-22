@@ -7,16 +7,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using TestTask2.DataAccess;
-using TestTask2.Models.Core;
+using TestTask2.Models;
 
 namespace TestTask2.ViewModels
 {
     class DeleteTestVM : ViewModelBase
     {
-        public ObservableCollection<Test> AllTests { get; set; } = new();
+        public ObservableCollection<TestInfo> AllTests { get; set; } = new();
 
-        private Test _selectedTest;
-        public Test SelectedTest
+        private string _tbStatus;
+
+        public string TbStatus
+        {
+            get => _tbStatus;
+            set
+            {
+                _tbStatus = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private TestInfo _selectedTest;
+        public TestInfo SelectedTest
         {
             get => _selectedTest;
             set
@@ -29,9 +41,6 @@ namespace TestTask2.ViewModels
         public DeleteTestVM()
         {
             LoadTests();
-
-
-
         }
 
         private void LoadTests()
@@ -42,17 +51,30 @@ namespace TestTask2.ViewModels
             }
             if (AllTests.Count == 0)
             {
-
+                TbStatus = "Нет доступных тестов.";
             }
         }
 
+        private RelayCommand _deleteChosenTestCommand;
+        public RelayCommand DeleteChosenTestCommand => _deleteChosenTestCommand ?? (_deleteChosenTestCommand = new RelayCommand(DeleteChosenTest));
         private void DeleteChosenTest()
         {
             if (SelectedTest == null)
+            {
                 return;
+            }
 
-            // логика удаления теста и тд.
-            // В View биндится DeleteChosenTestCommand, надо еще команду сделать
+            if(DBAccess.DropTest(SelectedTest.id))
+            {
+                TbStatus = $"Тест {SelectedTest.title} удален.";
+
+                AllTests.Clear();
+                LoadTests();
+            }
+            else
+            {
+                Console.WriteLine("Ошибка удаления.");
+            }
         }
 
 
