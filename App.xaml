@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TestTask2"
              StartupUri="MainWindow.xaml">
-    
+
     <Application.Resources>
 
         <ResourceDictionary>
@@ -16,14 +16,12 @@
                 <ResourceDictionary Source="Styles/PageStyle.xaml" />
                 <ResourceDictionary Source="Utilities/DataTemplate.xaml" />
                 <ResourceDictionary Source="/Styles/PushButtonStyle.xaml" />
-
-                <!--// вот тут так же другие словари ресурсов добавлять //-->
+                <ResourceDictionary Source="/Styles/QuestionCardStyle.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
-            
+
         </ResourceDictionary>
-        
-        
+
     </Application.Resources>
-    
+
 </Application>

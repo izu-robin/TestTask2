@@ -1,0 +1,185 @@
+﻿<UserControl x:Class="TestTask2.Views.QuestionCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:TestTask2.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="430" 
+             d:DesignWidth="700"
+             d:MinHeight="430"
+             d:MinWidth="700"
+             Style="{StaticResource Page_style}"
+             >
+
+    <UserControl.DataContext>
+        <vm:CompleteTestVM />
+    </UserControl.DataContext>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"
+              Grid.RowSpan="4" >
+
+            <Border CornerRadius="20"
+                            Background="#FFEBAE"
+                            Width="600"
+                            Height="350">
+
+                <Border.Effect>
+                    <DropShadowEffect Color="#BDB77C"/>
+                </Border.Effect>
+
+            </Border>
+
+        </Grid>
+
+        <Grid Grid.Row="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
+
+            <TextBlock Text="hghghghghghghhghghg ghghhghghg hghghghghhghghg v ghghhghghg hghghghghhghghg v ghghhghghg hghghghghhghghg v ghghhghghg hghghghghhghghg v ghghhghghg hghghghghhghghg v ghghhghghg hghghghghhghghg vv"
+                       Width="480"
+                       FontSize="16"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
+
+            <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+
+                <StackPanel 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="0,10">
+
+                    <CheckBox Name="ch1" 
+                          IsEnabled="{Binding CreatingInProgress, Mode=TwoWay}"
+                          IsChecked="{Binding NewQuestion.ChBStatus[3], Mode=TwoWay}"
+                          Width="380"
+                          VerticalContentAlignment="Center"
+                          Margin="0">
+
+                        <TextBlock  Text=" dfgdfg eh e  eytyesdfsdf fdg"
+                                Width="350"
+                                Height="23"
+                                FontSize="15" />
+
+                    </CheckBox>
+
+                    <CheckBox Name="ch2" 
+                          IsEnabled="{Binding CreatingInProgress, Mode=TwoWay}"
+                          IsChecked="{Binding NewQuestion.ChBStatus[3], Mode=TwoWay}"
+                          Width="380"
+                          VerticalContentAlignment="Center"
+                          Margin="0">
+
+                        <TextBlock  Text=" dfgfg  ssdfsdfsdfsdf fdg"
+                                Width="350"
+                                Height="23"
+                                FontSize="15" />
+
+                    </CheckBox>
+
+                    <CheckBox Name="ch3" 
+                          IsEnabled="{Binding CreatingInProgress, Mode=TwoWay}"
+                          IsChecked="{Binding NewQuestion.ChBStatus[3], Mode=TwoWay}"
+                          Width="380"
+                          VerticalContentAlignment="Center"
+                          Margin="0">
+
+                        <TextBlock  Text=" dfgdfgdgdgff r gfg  ssdfsdfsdfsdf fdg"
+                                Width="350"
+                                Height="23"
+                                FontSize="15" />
+
+                    </CheckBox>
+
+                    <CheckBox Name="ch4" 
+                          IsEnabled="{Binding CreatingInProgress, Mode=TwoWay}"
+                          IsChecked="{Binding NewQuestion.ChBStatus[3], Mode=TwoWay}"
+                          Width="380"
+                          VerticalContentAlignment="Center"
+                          Margin="0">
+
+                        <TextBlock  Text=" dfgdfgdgdgffgwww w w fg  ssdfsdfsdfsdf fdg"
+                                Width="350"
+                                Height="23"
+                                FontSize="15" 
+                                />
+
+                    </CheckBox>
+
+
+                </StackPanel>
+
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+
+
+                <StackPanel Orientation="Horizontal" 
+                            VerticalAlignment="Center" 
+                            Margin="0,20,0,0"
+>
+
+
+                    <Button Style="{StaticResource PushButton_style}"
+                            Height="30"
+                            Width="145"
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Center"
+                            Margin="0,0,80,0">
+
+                        <TextBlock Text="Предыдущий" 
+                                   Style="{StaticResource Text_style}"
+                                   VerticalAlignment="Center"
+                                   Height="20"
+                                   Margin="0"/>
+                        
+                    </Button>
+
+
+                    <Button Style="{StaticResource PushButton_style}"
+                            Height="30"
+                            Width="145"
+                            HorizontalAlignment="Right"
+                            VerticalContentAlignment="Center"
+                            Margin="80,0,0,0">
+
+                        <TextBlock Text="Следующий" 
+                                   Style="{StaticResource Text_style}"
+                                   VerticalAlignment="Center"
+                                   Height="20"
+                                   Margin="0"
+
+                                   />
+                        
+                    </Button>
+
+                </StackPanel>
+
+            </StackPanel>
+
+
+
+
+        </Grid>
+
+
+    </Grid>
+
+</UserControl>

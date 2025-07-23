@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace TestTask2.ViewModels
+namespace TestTask2.Utilities
 {
     class RelayCommand : ICommand
     {

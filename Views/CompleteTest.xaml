@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:TestTask2.ViewModels"
+             xmlns:local="clr-namespace:TestTask2.Views"
              mc:Ignorable="d" 
              d:DesignHeight="550" 
              d:DesignWidth="800"
@@ -15,6 +16,8 @@
     <UserControl.DataContext>
         <vm:CompleteTestVM />
     </UserControl.DataContext>
+
+    <!-- выкинула и вернула зазад три строки выше. DataContext="{Binding CompleteTestVM}"-->
 
     <Grid Margin="20,0">
         <!--<Border Background="Aqua"> </Border>-->
@@ -38,11 +41,15 @@
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"/>
 
-                <ComboBox Height="25" 
+                <ComboBox ItemsSource="{Binding AllTests}"
+                          SelectedItem="{Binding SelectedTest, Mode=TwoWay}"
+                          DisplayMemberPath="title"
+                          SelectedValuePath="id" Height="25" 
                           Margin="20,0"
                           Width="280"/>
 
-                <Button Style="{StaticResource PushButton_style}"           
+                <Button Style="{StaticResource PushButton_style}"       
+                        Command="{Binding StartSelectedTestCommand}"
                         Margin="20,0,0,0"
                         Width="180">
 
@@ -62,16 +69,18 @@
             <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Center">
 
+                <local:QuestionCard/>
+
+
                 <!--<ContentControl x:Name="Pages"
                                 Content="{Binding CurrentView}" />-->
-
-                <TextBlock Text="Ваш результат: " 
+                <!--<TextBlock Text="Ваш результат: " 
                            Style="{StaticResource Text_style}"
                            Margin="0"
                            FontSize="25"
-                           FontWeight="Bold"/>
-                
-                <TextBlock Text="x/y баллов" 
+                           FontWeight="Bold"/>-->
+
+                <TextBlock Text="{Binding ResultStatus}" 
                            Style="{StaticResource Text_style}"
                            Margin="0"
                            FontSize="25"/>

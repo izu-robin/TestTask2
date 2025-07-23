@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestTask2.DataAccess;
 using TestTask2.Models.Core;
+using TestTask2.Utilities;
 
 namespace TestTask2.ViewModels
 {
