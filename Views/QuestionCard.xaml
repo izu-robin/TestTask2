@@ -9,9 +9,8 @@
              d:DesignWidth="700"
              d:MinHeight="430"
              d:MinWidth="700"
-             Style="{StaticResource Page_style}"
+             Style="{StaticResource QuestionCard_style}"
              >
-
     <UserControl.DataContext>
         <vm:CompleteTestVM />
     </UserControl.DataContext>
@@ -45,7 +44,9 @@
               HorizontalAlignment="Center"
               VerticalAlignment="Center">
 
-            <TextBlock Text="hghghghghghghhghghg ghghhghghg hghghghghhghghg v ghghhghghg hghghghghhghghg v ghghhghghg hghghghghhghghg v ghghhghghg hghghghghhghghg v ghghhghghg hghghghghhghghg v ghghhghghg hghghghghhghghg vv"
+            <TextBlock Text="{Binding CurrentQuestion.questionText, Mode=OneWay}"
+                       Style="{StaticResource Text_style}"
+                       Margin="0"
                        Width="480"
                        FontSize="16"
                        TextWrapping="Wrap"
@@ -63,13 +64,13 @@
                     Margin="0,10">
 
                     <CheckBox Name="ch1" 
-                          IsEnabled="{Binding CreatingInProgress, Mode=TwoWay}"
-                          IsChecked="{Binding NewQuestion.ChBStatus[3], Mode=TwoWay}"
+                          IsEnabled="{Binding IsTestInProgress, Mode=TwoWay}"
+                          IsChecked="{Binding CurrentQuestion.ChBStatus[1], Mode=TwoWay}"
                           Width="380"
                           VerticalContentAlignment="Center"
                           Margin="0">
 
-                        <TextBlock  Text=" dfgdfg eh e  eytyesdfsdf fdg"
+                        <TextBlock  Text="{Binding CurrentQuestion.answer1}"
                                 Width="350"
                                 Height="23"
                                 FontSize="15" />
@@ -77,13 +78,13 @@
                     </CheckBox>
 
                     <CheckBox Name="ch2" 
-                          IsEnabled="{Binding CreatingInProgress, Mode=TwoWay}"
-                          IsChecked="{Binding NewQuestion.ChBStatus[3], Mode=TwoWay}"
+                          IsEnabled="{Binding IsTestInProgress, Mode=TwoWay}"
+                          IsChecked="{Binding CurrentQuestion.ChBStatus[2], Mode=TwoWay}"
                           Width="380"
                           VerticalContentAlignment="Center"
                           Margin="0">
 
-                        <TextBlock  Text=" dfgfg  ssdfsdfsdfsdf fdg"
+                        <TextBlock  Text="{Binding CurrentQuestion.answer2}"
                                 Width="350"
                                 Height="23"
                                 FontSize="15" />
@@ -91,13 +92,13 @@
                     </CheckBox>
 
                     <CheckBox Name="ch3" 
-                          IsEnabled="{Binding CreatingInProgress, Mode=TwoWay}"
-                          IsChecked="{Binding NewQuestion.ChBStatus[3], Mode=TwoWay}"
+                          IsEnabled="{Binding IsTestInProgress, Mode=TwoWay}"
+                          IsChecked="{Binding CurrentQuestion.ChBStatus[3], Mode=TwoWay}"
                           Width="380"
                           VerticalContentAlignment="Center"
                           Margin="0">
 
-                        <TextBlock  Text=" dfgdfgdgdgff r gfg  ssdfsdfsdfsdf fdg"
+                        <TextBlock  Text="{Binding CurrentQuestion.answer3}"
                                 Width="350"
                                 Height="23"
                                 FontSize="15" />
@@ -105,13 +106,13 @@
                     </CheckBox>
 
                     <CheckBox Name="ch4" 
-                          IsEnabled="{Binding CreatingInProgress, Mode=TwoWay}"
-                          IsChecked="{Binding NewQuestion.ChBStatus[3], Mode=TwoWay}"
+                          IsEnabled="{Binding IsTestInProgress, Mode=TwoWay}"
+                          IsChecked="{Binding CurrentQuestion.ChBStatus[4], Mode=TwoWay}"
                           Width="380"
                           VerticalContentAlignment="Center"
                           Margin="0">
 
-                        <TextBlock  Text=" dfgdfgdgdgffgwww w w fg  ssdfsdfsdfsdf fdg"
+                        <TextBlock  Text="{Binding CurrentQuestion.answer4}"
                                 Width="350"
                                 Height="23"
                                 FontSize="15" 

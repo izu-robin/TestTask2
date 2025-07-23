@@ -12,7 +12,17 @@ namespace TestTask2.Models.Core
     public class Question : INotifyPropertyChanged
     {
         public int id { get; set; }
-        public string questionText { get; set; }
+
+        private string _questionText;
+        public string questionText 
+        {
+            get => _questionText;
+            set
+            {
+                _questionText = value;
+                OnPropertyChanged();
+            }
+        }
         public string answer1 { get; set; }
         public string answer2 { get; set; }
         public string answer3 { get; set; }

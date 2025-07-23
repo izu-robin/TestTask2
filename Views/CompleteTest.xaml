@@ -69,11 +69,36 @@
             <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Center">
 
-                <local:QuestionCard/>
+                <!--<local:QuestionCard Visibility="{Binding IsQuestionVisible, 
+                                                 Converter={StaticResource BoolToVisibility},
+                                                 Mode=OneWay,   
+                                                 UpdateSourceTrigger=PropertyChanged}"/>-->
 
 
-                <!--<ContentControl x:Name="Pages"
-                                Content="{Binding CurrentView}" />-->
+                <local:QuestionCard DataContext="{Binding}"> 
+                    <!--<local:QuestionCard.Style>
+                        <Style TargetType="local:QuestionCard">
+                            <Setter Property="Opacity" 
+                                    Value="0" />
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsQuestionVisible, Mode=OneWay}"
+                                             Value="true">
+                                    <Setter Property="Opacity"
+                                            Value="1" />
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding IsQuestionVisible, Mode=OneWay}"
+                                             Value="false">
+                                    <Setter Property="Opacity"
+                                            Value="0" />
+                                    
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </local:QuestionCard.Style>-->
+                </local:QuestionCard>
+
                 <!--<TextBlock Text="Ваш результат: " 
                            Style="{StaticResource Text_style}"
                            Margin="0"

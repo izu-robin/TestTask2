@@ -19,7 +19,11 @@ namespace TestTask2.ViewModels
             IsTestInProgress = false;
             LoadTests();
 
+            //CurrentQuestion = new Question();
+            //CurrentQuestion.questionText = "dfsfsdfsdfsdf";
+
         }
+        public object QCardView;
 
         private string _resultStatus = "";
         public string ResultStatus
@@ -33,9 +37,19 @@ namespace TestTask2.ViewModels
             }
         }
 
+        private bool _isQuestionVisible = false;
+        public bool IsQuestionVisible
+        {
+            get => _isQuestionVisible;
+            set
+            {
+                _isQuestionVisible = value;
+                OnPropertyChanged(nameof(IsQuestionVisible));
+            }
+        }
 
         private bool _isTestInProgress;
-        private bool IsTestInProgress
+        public bool IsTestInProgress
         {
             get
             {
@@ -48,8 +62,8 @@ namespace TestTask2.ViewModels
 
                 BtnStatus = value ? "Завершить тест" : "Начать тест";
                 TbStatus = value ? "Текущий тест: " : "Выберите тест: ";
-
-                //OnPropertyChanged();
+                
+                OnPropertyChanged();
             }
         }
 
@@ -99,7 +113,17 @@ namespace TestTask2.ViewModels
         private Question _currentQuestion; //текущий вопрос
         public Question CurrentQuestion
         {
-            get => _currentQuestion;
+            get
+            {
+                {
+                    if (_currentQuestion == null)
+                    {
+                        _currentQuestion = new Question();
+                    }
+
+                    return _currentQuestion;
+                }
+            }
             set
             {
                 _currentQuestion = value;
@@ -128,6 +152,7 @@ namespace TestTask2.ViewModels
 
         private void GetQuestionsList()
         {
+
             foreach (Question q in DBAccess.LoadQuestions(SelectedTest.id))
             {
                 CurrentTest.QuestionsList.Add(q);
@@ -136,8 +161,8 @@ namespace TestTask2.ViewModels
             if (CurrentTest.QuestionsList.Count > 0)
             {
 
-                CurrentTest.CurrentQuestionIndex = 1;
-                CurrentTest.AnswersIntoChBoxes();
+                //CurrentTest.CurrentQuestionIndex = 1;
+                //CurrentTest.AnswersIntoChBoxes();
                 CurrentQuestion = CurrentTest.QuestionsList[0];
             }
         }
@@ -173,17 +198,15 @@ namespace TestTask2.ViewModels
         public RelayCommand StartSelectedTestCommand => _startSelectedTestCommand ?? (_startSelectedTestCommand = new RelayCommand(StartSelectedTest));
         private void StartSelectedTest()
         {
-            if(IsTestInProgress)
+            if (SelectedTest == null)
             { 
-                //вариант досрочного завершения теста
-                //...
                 return; 
+                //прикрутить error message о невыбранном тесте
             }
 
-            //вариант начала теста
-            IsTestInProgress = true;
-
-            //загружаем из бд список вопросов и дальше по плану
+            IsTestInProgress =!IsTestInProgress;
+            IsQuestionVisible = !IsQuestionVisible;
+            GetQuestionsList();
         }
 
         private RelayCommand _finishTestCommand;

@@ -6,28 +6,56 @@
 
         <Setter Property="Margin"
                 Value="22,0,0,0" />
-        
-        
+
         <Setter Property="RenderTransform">
+            
             <Setter.Value>
                 <TranslateTransform X="0"
-                    Y="50" />
+                                    Y="50" />
             </Setter.Value>
+            
         </Setter>
-        
-        
+
+        <Setter Property="Visibility"
+                Value="Hidden" />
 
         <Style.Triggers>
 
-            <Trigger Property="Visibility"
-             Value="Collapsed">
+            <DataTrigger Binding="{Binding IsQuestionVisible}" 
+                         Value="true">
 
-                <Setter Property="Opacity"
-                Value="0" />
+                <Setter Property="Visibility"
+                        Value="Visible" />
 
-            </Trigger>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
 
-            <EventTrigger RoutedEvent="Loaded">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             Duration="0:0:1"
+                                             From="0"
+                                             To="1" />
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                             From="50"
+                                             To="0"
+                                             Duration="0:0:0.8"
+                                             DecelerationRatio="0.6" />
+
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding IsQuestionVisible}" 
+                         Value="false">
+
+                <Setter Property="Visibility"
+                        Value="Hidden" />
+
+            </DataTrigger>
+
+            <!--<EventTrigger RoutedEvent="Loaded">
                 <BeginStoryboard>
                     <Storyboard>
 
@@ -43,7 +71,15 @@
 
                     </Storyboard>
                 </BeginStoryboard>
-            </EventTrigger>
+            </EventTrigger>-->
+            
+            <Trigger Property="Visibility"
+                     Value="Collapsed">
+
+                <Setter Property="Opacity"
+                        Value="0" />
+
+            </Trigger>
 
         </Style.Triggers>
 

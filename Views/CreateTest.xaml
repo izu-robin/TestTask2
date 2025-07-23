@@ -216,7 +216,7 @@
                         <Grid Grid.Column="1"
                               Grid.Row="0">
 
-                            <TextBlock Text="{Binding NewTest.CurrentQuestion}" 
+                            <TextBlock Text="{Binding NewTest.CurrentQuestionIndex}" 
                                        Style="{StaticResource Text_style}"
                                        Margin="0"
                                        HorizontalAlignment="Center"

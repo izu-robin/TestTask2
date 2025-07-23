@@ -20,7 +20,11 @@
 
             </ResourceDictionary.MergedDictionaries>
 
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+
         </ResourceDictionary>
+
+
 
     </Application.Resources>
 
