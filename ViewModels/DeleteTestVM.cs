@@ -77,7 +77,5 @@ namespace TestTask2.ViewModels
                 Console.WriteLine("Ошибка удаления.");
             }
         }
-
-
     }
 }

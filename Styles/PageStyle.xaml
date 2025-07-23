@@ -5,10 +5,14 @@
            TargetType="{x:Type UserControl}" >
 
         <Setter Property="RenderTransform">
+            
             <Setter.Value>
+                
                 <TranslateTransform X="0"
                                     Y="50" />
+                
             </Setter.Value>
+            
         </Setter>
 
         <Style.Triggers>
@@ -22,7 +26,9 @@
             </Trigger>
 
             <EventTrigger RoutedEvent="Loaded">
+                
                 <BeginStoryboard>
+                    
                     <Storyboard>
 
                         <DoubleAnimation Storyboard.TargetProperty="Opacity"
@@ -36,13 +42,13 @@
                                          DecelerationRatio="0.6" />
 
                     </Storyboard>
+                    
                 </BeginStoryboard>
+                
             </EventTrigger>
             
         </Style.Triggers>
         
-        
     </Style>
     
-   
 </ResourceDictionary>

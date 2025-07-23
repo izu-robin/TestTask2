@@ -62,9 +62,7 @@
 
             </StackPanel>
 
-
         </Grid>
-
 
         <Grid Grid.Row="1">
 
@@ -73,9 +71,7 @@
                         Margin="30,0"
                         Width="660">
 
-
                 <StackPanel Orientation="Horizontal">
-
 
                     <TextBlock Text="Введите вопрос: "
                            Style="{StaticResource Text_style}" 
@@ -100,10 +96,6 @@
                          Width="660"
                          FontSize="18"/>
 
-
-
-
-
                 <TextBlock Text="Введите  варианты ответа и отметьте правильные (один или несколько): "
                            Style="{StaticResource Text_style}" 
                            HorizontalAlignment="Left"
@@ -111,7 +103,6 @@
                            Width="660"
                            Margin="0,0,0,10"
                            FontSize="20"/>
-
 
                 <CheckBox Name="ch1" 
                           IsEnabled="{Binding CreatingInProgress, Mode=TwoWay}"
@@ -176,8 +167,6 @@
 
                 </CheckBox>
 
-
-
                 <Grid Width="660"
                       Height="80"
                       Margin="0,20">
@@ -208,8 +197,6 @@
                                    Margin="0"/>
 
                             </Button>
-
-
 
                         </Grid>
 
@@ -273,22 +260,11 @@
                         
                     </Grid>
 
-                    
-
                 </Grid>
 
             </StackPanel>
 
-
-
-
         </Grid>
-
-
-
-
-
-
 
     </Grid>
 

@@ -17,12 +17,8 @@
         <vm:CompleteTestVM />
     </UserControl.DataContext>
 
-    <!-- выкинула и вернула зазад три строки выше. DataContext="{Binding CompleteTestVM}"-->
-
     <Grid Margin="20,0">
-        <!--<Border Background="Aqua"> </Border>-->
-        <!--// контент страницы //-->
-
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="4*" />
@@ -67,49 +63,19 @@
         <Grid Grid.Row="1">
 
             <StackPanel VerticalAlignment="Center"
-                        HorizontalAlignment="Center">
+                        HorizontalAlignment="Center"
+                        >
 
-                <!--<local:QuestionCard Visibility="{Binding IsQuestionVisible, 
-                                                 Converter={StaticResource BoolToVisibility},
-                                                 Mode=OneWay,   
-                                                 UpdateSourceTrigger=PropertyChanged}"/>-->
-
-
-                <local:QuestionCard DataContext="{Binding}"> 
-                    <!--<local:QuestionCard.Style>
-                        <Style TargetType="local:QuestionCard">
-                            <Setter Property="Opacity" 
-                                    Value="0" />
-
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsQuestionVisible, Mode=OneWay}"
-                                             Value="true">
-                                    <Setter Property="Opacity"
-                                            Value="1" />
-                                </DataTrigger>
-
-                                <DataTrigger Binding="{Binding IsQuestionVisible, Mode=OneWay}"
-                                             Value="false">
-                                    <Setter Property="Opacity"
-                                            Value="0" />
-                                    
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </local:QuestionCard.Style>-->
-                </local:QuestionCard>
-
-                <!--<TextBlock Text="Ваш результат: " 
-                           Style="{StaticResource Text_style}"
-                           Margin="0"
-                           FontSize="25"
-                           FontWeight="Bold"/>-->
 
                 <TextBlock Text="{Binding ResultStatus}" 
                            Style="{StaticResource Text_style}"
-                           Margin="0"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Margin="0,50,0,0"
                            FontSize="25"/>
-                
+
+                <local:QuestionCard DataContext="{Binding}"
+                                    Margin="0,0,0,70" />
 
             </StackPanel>
         </Grid>

@@ -9,6 +9,4 @@ namespace TestTask2.Models
     class DeleteTest
     {
     }
-
-   
 }

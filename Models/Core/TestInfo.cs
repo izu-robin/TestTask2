@@ -11,13 +11,7 @@ namespace TestTask2.Models.Core
         public int id { get; set; }
         public string title { get; set; }
 
-        public TestInfo(string title)
-        {
-            this.title = title;
-        }
-
         public TestInfo() { }
-
     }
     
 }

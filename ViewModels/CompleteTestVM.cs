@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -17,23 +18,27 @@ namespace TestTask2.ViewModels
         public CompleteTestVM()
         {
             IsTestInProgress = false;
+
             LoadTests();
-
-            //CurrentQuestion = new Question();
-            //CurrentQuestion.questionText = "dfsfsdfsdfsdf";
-
         }
         public object QCardView;
 
         private string _resultStatus = "";
         public string ResultStatus
         {
-            get => _resultStatus;
+            get
+            {
+                if(IsTestFinished)
+                {
+                    return $"Ваш результат: \n{_resultStatus} правильных ответов из {CurrentTest.QuestionsList.Count} ";
+                }
+                else
+                { return _resultStatus; }   
+            } 
             set
             {
                 _resultStatus = value;
                 OnPropertyChanged();
-                //ResultStatus = $"Ваш результат: \n 20/23 баллов";
             }
         }
 
@@ -77,8 +82,7 @@ namespace TestTask2.ViewModels
             set
             {
                 _isTestFinished = value;
-                // и вот тут вот все методы и вообще все, 
-                // что должно произойти по окончанию метода, по сути.
+                OnPropertyChanged() ;
             }
         }
 
@@ -110,7 +114,23 @@ namespace TestTask2.ViewModels
             }
         }
 
-        private Question _currentQuestion; //текущий вопрос
+        private string _nextButtonStatus = "Следующий";
+        public string NextButtonStatus
+        {
+            get => _nextButtonStatus;
+            set
+            {
+                if(CurrentTest.QuestionsList.Count==CurrentTest.CurrentQuestionIndex)
+                {
+                    _nextButtonStatus = "Конец";
+                }
+                else if(CurrentTest.QuestionsList.Count > CurrentTest.CurrentQuestionIndex)
+                    _nextButtonStatus = "Следующий";
+                OnPropertyChanged();
+            }
+        }
+
+        private Question _currentQuestion; 
         public Question CurrentQuestion
         {
             get
@@ -150,6 +170,8 @@ namespace TestTask2.ViewModels
             }
         }
 
+        int total { get; set; }
+
         private void GetQuestionsList()
         {
 
@@ -161,7 +183,7 @@ namespace TestTask2.ViewModels
             if (CurrentTest.QuestionsList.Count > 0)
             {
 
-                //CurrentTest.CurrentQuestionIndex = 1;
+                CurrentTest.CurrentQuestionIndex = 0;
                 //CurrentTest.AnswersIntoChBoxes();
                 CurrentQuestion = CurrentTest.QuestionsList[0];
             }
@@ -192,32 +214,91 @@ namespace TestTask2.ViewModels
             }
         }
         
-
-
         private RelayCommand _startSelectedTestCommand;
         public RelayCommand StartSelectedTestCommand => _startSelectedTestCommand ?? (_startSelectedTestCommand = new RelayCommand(StartSelectedTest));
         private void StartSelectedTest()
         {
-            if (SelectedTest == null)
-            { 
-                return; 
-                //прикрутить error message о невыбранном тесте
+            if (IsQuestionVisible)
+            {
+                FinishTest();
+                return;
             }
 
-            IsTestInProgress =!IsTestInProgress;
+            if (SelectedTest==null)
+            { 
+                return; 
+            }
+
+            if (CurrentTest==null)
+            {
+                CurrentTest = new Test();
+            }
+
+            IsTestFinished = false;  
+
             IsQuestionVisible = !IsQuestionVisible;
+
             GetQuestionsList();
+
+            IsTestInProgress = true;
+
+            ResultStatus = "";
         }
 
         private RelayCommand _finishTestCommand;
         public RelayCommand FinishTestCommand => _finishTestCommand ?? (_finishTestCommand = new RelayCommand(FinishTest));
         private void FinishTest()
         {
-            //перенести в StartSelectedTestCommand по булевскому флагу??? 
+        
+            IsTestInProgress = !IsTestInProgress;
+            IsQuestionVisible = !IsQuestionVisible;
+            IsTestFinished = true;
+
+            CurrentTest.SaveGivenAnswers();
+            ResultStatus = (CurrentTest.CheckResult()).ToString();
+
+
+            CurrentTest = new Test();
+            CurrentQuestion = new Question();
 
         }
 
+        private RelayCommand _showNextQuestionCommand;
+        public RelayCommand ShowNextQuestionCommand => _showNextQuestionCommand ?? (_showNextQuestionCommand = new RelayCommand(ShowNextQuestion));
+        private void ShowNextQuestion()
+        {
+            if (CurrentTest.CurrentQuestionIndex == CurrentTest.QuestionsList.Count)
+            {
+                FinishTest();
 
+                return;
+            }
+
+            NextButtonStatus = "Следующий";
+
+            IsQuestionVisible = false; //здесь и далее смена IsQuestionVisible = false
+                                       //на IsQuestionVisible=true нужна чтобы запустить анимацию всплытия карточки вопроса
+
+            CurrentTest.CurrentQuestionIndex += 1;
+            CurrentQuestion = CurrentTest.QuestionsList[CurrentTest.CurrentQuestionIndex-1];
+
+            IsQuestionVisible=true;
+        }
+
+        private RelayCommand _showPreviousQuestionCommand;
+        public RelayCommand ShowPreviousQuestionCommand => _showPreviousQuestionCommand ?? (_showPreviousQuestionCommand = new RelayCommand(ShowPrevioustQuestion));
+        private void ShowPrevioustQuestion()
+        {
+            if(CurrentTest.CurrentQuestionIndex==1)
+            { return; }
+
+            IsQuestionVisible = false;
+
+            CurrentTest.CurrentQuestionIndex -= 1;
+            CurrentQuestion = CurrentTest.QuestionsList[CurrentTest.CurrentQuestionIndex-1];
+
+            IsQuestionVisible = true;
+        }
 
 
 

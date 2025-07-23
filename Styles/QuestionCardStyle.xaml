@@ -28,7 +28,9 @@
                         Value="Visible" />
 
                 <DataTrigger.EnterActions>
+                    
                     <BeginStoryboard>
+                        
                         <Storyboard>
 
                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
@@ -42,7 +44,9 @@
                                              DecelerationRatio="0.6" />
 
                         </Storyboard>
+                        
                     </BeginStoryboard>
+                    
                 </DataTrigger.EnterActions>
 
             </DataTrigger>
@@ -55,24 +59,6 @@
 
             </DataTrigger>
 
-            <!--<EventTrigger RoutedEvent="Loaded">
-                <BeginStoryboard>
-                    <Storyboard>
-
-                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                 Duration="0:0:1"
-                                 From="0"
-                                 To="1" />
-                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                 From="50"
-                                 To="0"
-                                 Duration="0:0:0.8"
-                                 DecelerationRatio="0.6" />
-
-                    </Storyboard>
-                </BeginStoryboard>
-            </EventTrigger>-->
-            
             <Trigger Property="Visibility"
                      Value="Collapsed">
 

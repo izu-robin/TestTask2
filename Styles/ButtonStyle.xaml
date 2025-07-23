@@ -30,7 +30,7 @@
 
                         </Border.Background>
 
-                        <Grid> <!--//а это нельзя удалять, кнопки будут без иконки и текста  //-->
+                        <Grid> 
                             <ContentPresenter /> 
                         </Grid>
 
@@ -64,6 +64,7 @@
                                       SourceName="border">
 
                             <BeginStoryboard>
+                                
                                 <Storyboard>
                                     
                                     <ColorAnimation Storyboard.TargetName="BorderBackground"
@@ -73,7 +74,9 @@
                                                     Duration="0:0:0.3" />
                                     
                                 </Storyboard>
+                                
                             </BeginStoryboard>
+                            
                         </EventTrigger>
 
                         <Trigger Property="IsChecked"

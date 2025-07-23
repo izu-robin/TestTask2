@@ -15,14 +15,6 @@ namespace TestTask2.Models.Core
     {
         public int id { get; set; }
         public string title { get; set; }
-        
-        //------------------------------
-        public event PropertyChangedEventHandler? PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        //-------------------------------
 
         private int _currentQuestionIndex;
         public int CurrentQuestionIndex
@@ -88,12 +80,6 @@ namespace TestTask2.Models.Core
         {
             foreach(Question q in this.QuestionsList)
             {
-                //char[] answer = q.correctAnswer.ToArray();
-
-                //for(int i=0; i< q.correctAnswer.Length; i++)
-                //{
-                //    q.ChBStatus[q.correctAnswer[i]] = true;
-                //}
                 int index = -1;
                 foreach (char c in q.correctAnswer)
                 {
@@ -118,5 +104,12 @@ namespace TestTask2.Models.Core
             return total;
         }
 
+        //----------------INotifyPropertyChanged
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        //-------------------------------
     }
 }

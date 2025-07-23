@@ -47,7 +47,13 @@ namespace TestTask2.Models.Core
             }
         }
 
-        //----------------------------------------
+        public string correctAnswer { get; set; }
+
+        public string givenAnswer { get; set; }
+
+        public Question() {}
+
+        //------------- INotifyPropertyChanged
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -55,14 +61,6 @@ namespace TestTask2.Models.Core
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         //----------------------------------------
-
-        public string correctAnswer { get; set; }
-
-        public string givenAnswer { get; set; }
-
-        public Question() {}
-
-
 
     }
 }

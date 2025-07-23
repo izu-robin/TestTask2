@@ -44,7 +44,5 @@ namespace TestTask2.ViewModels
 
             CurrentView = new CompleteTestVM();
         }
-
-
     }
 }

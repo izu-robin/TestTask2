@@ -14,6 +14,8 @@ namespace TestTask2.DataAccess
 {
     class DBAccess
     {
+        public DBAccess() {}
+
         public static string ConnectionString = "Data Source=DataAccess\\TestMasterDB.db";
 
         public static List<TestInfo> GetTests()
@@ -133,7 +135,7 @@ namespace TestTask2.DataAccess
                 return false;
             }
 
-            // ------------------------------теперь пачку вопросов надо как-то сохранить в бд ---------------------
+            // ------------------------------сохранение списка вопросов в бд ---------------------
 
             sql = "INSERT INTO Questions (testId, questionText, answer1, answer2, answer3, answer4, correctAnswer) " +
                 "VALUES (@testId, @questionText, @answer1, @answer2, @answer3, @answer4, @correctAnswer)";
@@ -266,15 +268,7 @@ namespace TestTask2.DataAccess
                 connection.Close();
 
                 return true;
-
             }
-
-
         }
-
-
-
-
-
     }
 }

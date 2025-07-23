@@ -9,11 +9,9 @@ namespace TestTask2.Utilities
 {
     class RelayCommand : ICommand
     {
-        //Fields
-        private readonly Action _execute; //делегат для передачи метода как параметра
-        private readonly Func<object, bool> _canExecute; //проверка а можно ли вообще выполнять метод
+        private readonly Action _execute; 
+        private readonly Func<object, bool> _canExecute; 
 
-        //выделить нужные поля, по ним пр.к.мыши и рефакторинг - создать конструктор с этими полями, классный снипет
         public RelayCommand(Action execute, Func<object, bool> canExecute = null)
         {
             _execute = execute;

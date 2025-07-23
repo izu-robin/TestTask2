@@ -15,8 +15,6 @@
     <Window.DataContext>
         <vm:TopMenuVM />
     </Window.DataContext>
-    
-    <!--xmlns:vm изменена,  xmlns:Menu добавлена вся--> 
 
     <Grid>
 
@@ -29,19 +27,11 @@
             <!--// меню //-->
 
             <Grid Grid.Row="0"
-                  Background="White" 
-                  >
-                <!--<Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>-->
+                  Background="White">
 
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center">
 
-                    <!--Пройти тест-->
                     <Menu:Btn Style="{StaticResource BtnStyle}" 
                               Command="{Binding CompleteCommand}"
                               IsChecked="True"
@@ -57,11 +47,8 @@
 
                     </Menu:Btn>
 
-                    <!--Создать тест-->
-
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding CreateCommand}"
-                              >
+                              Command="{Binding CreateCommand}">
 
                         <Grid>
 
@@ -73,11 +60,6 @@
                         </Grid>
 
                     </Menu:Btn>
-
-
-
-
-                    <!--Изменить тест-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
                               Command="{Binding RedactCommand}"
@@ -93,12 +75,9 @@
 
                     </Menu:Btn>
 
-
-                    <!--Удалить тест-->
-
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding DeleteCommand}"
-                              >
+                              Command="{Binding DeleteCommand}">
+                        
                         <Grid>
 
                             <Image Source="/Img/iconDelete.png"

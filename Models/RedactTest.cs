@@ -9,5 +9,4 @@ namespace TestTask2.Models
     class RedactTest
     {
     }
-
 }

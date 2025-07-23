@@ -39,7 +39,6 @@ namespace TestTask2.ViewModels
             }
         }
 
-
         private bool _creatingInProgress;
         public bool CreatingInProgress
         {
@@ -50,10 +49,8 @@ namespace TestTask2.ViewModels
                 CreateSaveButton = "Создать тест";
                 OnPropertyChanged();
 
-                //вот сюда еще что-то можно задать, что активно в разных состояниях
             }
         }
-
 
         private string _createSaveButton;
         public string CreateSaveButton
@@ -103,24 +100,6 @@ namespace TestTask2.ViewModels
             }
         }
 
-        //private string _questionNumber;
-        //public string QuestionNumber
-        //{
-        //    get
-        //    {
-        //        return _questionNumber;
-               
-        //    }
-        //    set
-        //    {
-        //        _questionNumber = $"Вопрос {NewTest.currentQuestion} из {NewTest.QuestionsList.Count}";
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-
-
-
         private RelayCommand _createNewTestCommand;
         public RelayCommand CreateNewTestCommand => _createNewTestCommand ?? (_createNewTestCommand = new RelayCommand(CreateNewTest));
 
@@ -135,19 +114,8 @@ namespace TestTask2.ViewModels
             {
                 return; //ранний ритёрн на случай незаполненого названия 
             }
-            
-            if(CreatingInProgress) //то есть сохраняем и вырубаем
-            {
-                //if(NewTest.QuestionsList.Count==0)
-                //{
-                //    ErrorMessage = "Нельзя сохранить пустой тест.";
-                //}
-                //CreatingInProgress = !CreatingInProgress;
-                //сохранить в бд и отдельно тест, и пачку вопросов каким-то циклом
-                // DBAccess.InsertTest(NewTest);
-                // и там цикл на внесение новых вопросов в Questions
-            }
-            else //то есть начинаем новый тест
+
+            if(!CreatingInProgress) //то есть начинаем новый тест
             {
                 NewTest.CurrentQuestionIndex = 1;
                 CreatingInProgress = !CreatingInProgress;
@@ -162,11 +130,6 @@ namespace TestTask2.ViewModels
         {
             if(NewTest.CurrentQuestionIndex == NewTest.QuestionsList.Count+1)
             {
-                //то есть мы на последнем вопросе из существующих
-                //если не отклонялись
-
-                //как-то сохранить отмеченные чекбоксы как ответ
-
                 if (CheckForBlanks())
                 { return; }
 
@@ -176,14 +139,10 @@ namespace TestTask2.ViewModels
             }
             else if(NewTest.CurrentQuestionIndex < NewTest.QuestionsList.Count)
             {
-                //то есть мы отмотали немного назад
-                //как-то сохранить отмеченные чекбоксы как ответ
-
                 if (CheckForBlanks())
                 { return; }
 
                 NewQuestion = NewTest.QuestionsList[NewTest.CurrentQuestionIndex++];
-                //NewTest.CurrentQuestion++;
             }
             else if(NewTest.CurrentQuestionIndex == NewTest.QuestionsList.Count)
             {
